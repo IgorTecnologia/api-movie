@@ -70,6 +70,6 @@ public class Genre implements Serializable{
 		Genre other = (Genre) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 	 
 }
