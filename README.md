@@ -8,4 +8,4 @@ Através do comando git clone <url deste repositório> você pode armazena-lá n
 Realizando requisições HTTP, através de ferramentas para tests de request/response se pode utiliza-lá, por exemplo a ferramenta Postman, ou Insomnia.
 Pode-se também realizar a hospedagem (deploy) dessa aplicação em uma nuvem para funcionar como um Backend e conecta-lá a uma aplicação Front-end para ser utilizada por um usuário final.
 
-![Java mascot](https://img-c.udemycdn.com/course/750x422/3569929_d77b.jpg)
+![Java img](https://media.licdn.com/dms/image/C5612AQEzIUKfbUUNWw/article-cover_image-shrink_600_2000/0/1640701919659?e=2147483647&v=beta&t=_GgQWOSDG_nklkJef1XqFVHk68CKCsKIBohmCzkJk-Q)
