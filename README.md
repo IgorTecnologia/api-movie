@@ -215,4 +215,4 @@ Contribuições são bem-vindas! Se você encontrar algum problema ou tiver suge
 
 Ao contribuir para este projeto, siga o estilo de código existente, [convenções de commit](https://medium.com/linkapi-solutions/conventional-commits-pattern-3778d1a1e657), e envie suas alterações em uma branch separado.
 
-![Java img](https://media.licdn.com/dms/image/C5612AQEzIUKfbUUNWw/article-cover_image-shrink_600_2000/0/1640701919659?e=2147483647&v=beta&t=_GgQWOSDG_nklkJef1XqFVHk68CKCsKIBohmCzkJk-Q)
+![Java img](https://wallpapercave.com/wp/wp4048617.jpg)
