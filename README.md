@@ -6,18 +6,18 @@
 api-movie é uma aplicação backend monolítica desenvolvida para gerenciar dados relacionados a filmes, proporcionando uma interface completa para operações de CRUD (Create, Read, Update, Delete) em diferentes recursos.
 
 # Funcionalidades Principais
-A aplicação oferece quatro APIs REST principais, cada uma focada em um recurso específico:
+A aplicação oferece quatro APIs principais de modelos APIREST e APIRESTful, cada uma focada em um recurso específico:
 
-Genre: Gerencia os gêneros de filmes, permitindo criar, visualizar, atualizar e excluir categorias de gênero.
+APIRESTful para Genre: Gerencia os gêneros de filmes, permitindo criar, visualizar, atualizar e excluir categorias de gênero.
 
-Movie: Gerencia os dados dos filmes, incluindo informações como título, descrição, e gênero. Permite operações de CRUD para manter o catálogo de filmes atualizado.
+APIRESTful para Movie: Gerencia os dados dos filmes, incluindo informações como título, descrição, e gênero. Permite operações de CRUD para manter o catálogo de filmes atualizado.
 
-Review: Permite a criação, leitura, atualização e exclusão de resenhas de filmes, facilitando a interação dos usuários com o conteúdo.
+APIREST para Review: Permite a criação, leitura, atualização e exclusão de resenhas de filmes, facilitando a interação dos usuários com o conteúdo.
 
-User: Gerencia os usuários da aplicação, incluindo a capacidade de criar, visualizar, atualizar e excluir perfis de usuário.
+APIRESTful para User: Gerencia os usuários da aplicação, incluindo a capacidade de criar, visualizar, atualizar e excluir perfis de usuário.
 
 # O que a aplicação proporciona?
-api-movie foi projetada para oferecer uma solução robusta para o gerenciamento de filmes e suas interações com usuários. Com uma arquitetura monolítica, a aplicação integra de forma coesa todas as funcionalidades necessárias para a administração de gêneros, filmes, resenhas e usuários, ideal para plataformas de streaming, sites de crítica de cinema, ou qualquer aplicação relacionada ao mundo dos filmes
+api-movie foi projetada para oferecer uma solução robusta para o gerenciamento de filmes e suas interações com usuários. Com uma arquitetura monolítica, a aplicação integra de forma coesa todas as funcionalidades necessárias para a administração de gêneros, filmes, resenhas e usuários, ideal para plataformas de streaming, sites de crítica de cinema, ou qualquer aplicação relacionada ao mundo dos filmes.
 
 ## Table of Contents
 
@@ -60,33 +60,38 @@ The API provides the following endpoints:
 GET /users - Retrieve a pagination of all movies.
 ```
 ```json
-"content": [
+{
+    "content": [
         {
-            "id": 2,
+            "id": "abffc6bd-8dcc-4f10-8ad0-9c5ec1c13059",
             "title": "O Garfild",
             "subTitle": "O gato sapéca",
-            "year": 2012,
+            "yearOfRelease": 2012,
             "imgUrl": "www.img/url.com",
+            "synopsis": "Um gato para lá de esperto",
             "genre": {
-                "id": 2,
-                "name": "Comédia"
+                "id": "f891c878-9f2d-494d-bb9c-76d74824387d",
+                "name": "Comédia",
+                "movies": [],
+                "reviews": [],
+                "links": []
             },
             "reviews": [
                 {
-                    "id": 2,
+                    "id": "f02ddf59-7e76-4717-89b3-c4cbb87a8b6b",
                     "text": "Muito engraçado",
                     "user": {
-                        "id": 2,
+                        "id": "f0a0967b-4d58-45f6-b743-d26b20e3e88f",
                         "name": "Nanci",
                         "email": "nanci@gmail.com",
-                        "password": "1234567",
-                        "roles": [
-                            {
-                                "id": 1,
-                                "authority": "Administrador"
-                            }
-                        ]
-                    }
+                        "roles": [],
+                        "links": []
+                    },
+                }
+                ],
+        }
+]
+}
 ```
 **GET MOVIES**
 ```markdown
@@ -96,18 +101,33 @@ Exemple: GET /movies/title/garfild
 ```json
    [
     {
-        "id": 2,
+        "id": "abffc6bd-8dcc-4f10-8ad0-9c5ec1c13059",
         "title": "O Garfild",
         "subTitle": "O gato sapéca",
-        "year": 2012,
+        "yearOfRelease": 2012,
         "imgUrl": "www.img/url.com",
+        "synopsis": "Um gato para lá de esperto",
         "genre": {
-            "id": 2,
-            "name": "Comédia"
+            "id": "f891c878-9f2d-494d-bb9c-76d74824387d",
+            "name": "Comédia",
+            "movies": [],
+            "reviews": [],
+            "links": []
         },
-        "reviews": [],
-        "synopsis": "Um gato para lá de esperto"
-    }
+        "reviews": [
+            {
+                "id": "f02ddf59-7e76-4717-89b3-c4cbb87a8b6b",
+                "text": "Muito engraçado",
+                "user": {
+                    "id": "f0a0967b-4d58-45f6-b743-d26b20e3e88f",
+                    "name": "Nanci",
+                    "email": "nanci@gmail.com",
+                    "roles": [],
+                    "links": []
+                }
+        }
+        ]
+        }
 ]
 
 ```
@@ -118,31 +138,33 @@ GET /movies/id - Retrieve a single movie by id.
 
 ```json
 {
-    "id": 1,
-    "title": "O homem de ferro",
-    "subTitle": "A batalha",
-    "year": 2024,
+    "id": "abffc6bd-8dcc-4f10-8ad0-9c5ec1c13059",
+    "title": "O Garfild",
+    "subTitle": "O gato sapéca",
+    "yearOfRelease": 2012,
     "imgUrl": "www.img/url.com",
+    "synopsis": "Um gato para lá de esperto",
     "genre": {
-        "id": 1,
-        "name": "Ação"
+        "id": "f891c878-9f2d-494d-bb9c-76d74824387d",
+        "name": "Comédia",
+        "movies": [],
+        "reviews": [],
+        "links": []
     },
     "reviews": [
         {
-            "id": 1,
-            "text": "Filmaço",
+            "id": "f02ddf59-7e76-4717-89b3-c4cbb87a8b6b",
+            "text": "Muito engraçado",
             "user": {
-                "id": 1,
-                "name": "Igor",
-                "email": "igor@gmail.com",
-                "password": "1234567",
-                "roles": [
-                    {
-                        "id": 2,
-                        "authority": "Membro"
-                    }
-                ]
+                "id": "f0a0967b-4d58-45f6-b743-d26b20e3e88f",
+                "name": "Nanci",
+                "email": "nanci@gmail.com",
+                "roles": [],
+                "links": []
             }
+        }
+        ]
+}
 ```
 **POST MOVIES**
 ```markdown
@@ -150,14 +172,21 @@ POST /movies - Register a new movie into the App
 ```
 ```json
 {
-    "title" : "Filme 01",
-    "subTitle" : "Filme 01 sub",
-    "year" : 2000,
-    "imgUrl" : "www.img.com",
-    "synopsis" : "synopsi test",
-    "genre" : {
-        "id" : 2
-    }
+    "id": "d0db3222-c586-4cc2-8107-b06b0cbedd2e",
+    "title": "O Amanhecer",
+    "subTitle": "Um lindo raiar do sol!",
+    "yearOfRelease": 2007,
+    "imgUrl": "www.img.com",
+    "synopsis": "Uma profunda história!",
+    "genre": {
+        "id": "bf81ec99-caff-47b7-8d41-a453e9bdb550",
+        "name": "Drama",
+        "movies": [],
+        "reviews": [],
+        "links": []
+    },
+    "reviews": [],
+    "links": []
 }
 ```
 **PUT MOVIES**
@@ -166,20 +195,28 @@ PUT/movies/id - Update a movie in the application by id.
 ```
 ```json
 {
-    "title" : "Filme 03",
-    "subTitle" : "Filme 03 sub",
-    "year" : 2003,
-    "imgUrl" : "www.img.com.br",
-    "synopsis" : "synopsi filme 03",
-    "genre" :{
-        "id" : 2
-    } 
+    "id": "d0db3222-c586-4cc2-8107-b06b0cbedd2e",
+    "title": "O anoitecer",
+    "subTitle": "Um belo por do sol!",
+    "yearOfRelease": 2007,
+    "imgUrl": "www.img.com",
+    "synopsis": "Uma linda e maravilhosa noite!",
+    "genre": {
+        "id": "192828c3-1e10-408e-90fe-ca3fba05c790",
+        "name": "Aventura",
+        "movies": [],
+        "reviews": [],
+        "links": []
+    },
+    "reviews": [],
+    "links": []
 }
 ```
 **DELETE MOVIES**
 ```markdown
 DELETE/movies/id - Delete a movie in the application by id.
-return HTTP status: 204 NO CONTENT
+return HTTP status: 200.
+body: Movie deleted successfully.
 
 ```
 ## Database
@@ -187,11 +224,11 @@ The project utilizes [H2 Database](https://www.h2database.com/html/tutorial.html
 
 ## Technologies Used
 
-- Java version 11
+- Java version 17
 - Spring Boot
 - Maven
 - H2 Database
-- Spring Tool Suite 4
+- IntelliJ IDEA Community
 - Postman
 
 ## Observation
