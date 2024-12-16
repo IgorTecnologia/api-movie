@@ -26,8 +26,8 @@ api-movie foi projetada para oferecer uma solução robusta para o gerenciamento
 - [API Endpoints](#api-endpoints)
 - [Database](#database)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
 - [Observation](#observation)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -225,7 +225,7 @@ The project utilizes [H2 Database](https://www.h2database.com/html/tutorial.html
 ## Technologies Used
 
 - Java version 17
-- Spring Boot
+- Spring Boot Version 3.3.4
 - Maven
 - H2 Database
 - IntelliJ IDEA Community
