@@ -35,7 +35,6 @@ public class UserDTO extends RepresentationModel<UserDTO> implements Serializabl
 
 	@NotBlank(message = "The password field is mandatory and does not allow blanks.")
 	@Size(min = 7, max = 50, message = "Minimum characters allowed are 7 e maximum are 30.")
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	
 	private List<RoleDTO> roles = new ArrayList<>();
