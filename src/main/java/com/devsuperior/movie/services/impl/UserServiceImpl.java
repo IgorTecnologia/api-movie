@@ -44,6 +44,9 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> queryMethod(String name) {
 
 		List<User> list = repository.findAllByNameContainingIgnoreCase(name);
+		if(list.isEmpty()){
+			throw new ResourceNotFoundException("Name not found: " + name);
+		}
 
 		return list.stream().map(x -> new UserDTO(x, x.getRoles())).collect(Collectors.toList());
 	}
@@ -76,7 +79,7 @@ public class UserServiceImpl implements UserService {
 	public UserDTO update(UUID id, UserDTO dto) {
 
 		Optional<User> obj = repository.findById(id);
-		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Id not found: " + obj.get().getId()));
+		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
 		copyDtoToEntity(entity, dto);
 		repository.save(entity);
 		
@@ -93,7 +96,7 @@ public class UserServiceImpl implements UserService {
 }
 	
 	 void copyDtoToEntity(User entity, UserDTO dto) {
-		
+
 		entity.setName(dto.getName());
 		entity.setEmail(dto.getEmail());
 		entity.setPassword(dto.getPassword());
