@@ -12,7 +12,7 @@ public interface MovieService {
 
     Page<MovieDTO> findAllPaged(SpecificationTemplate.MovieSpec spec, Pageable pageable);
 
-    List<MovieDTO> queryMethod(String name);
+    List<MovieDTO> queryMethod(String tile);
 
     MovieDTO findById(UUID id);
 
