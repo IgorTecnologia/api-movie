@@ -53,13 +53,15 @@ public class MovieDTO extends RepresentationModel<MovieDTO> implements Serializa
 	public MovieDTO() {
 	}
 
-	public MovieDTO(UUID id, String title, String subTitle, Integer yearOfRelease, String imgUrl, String synopsis) {
+
+	public MovieDTO(UUID id, String title, String subTitle, Integer yearOfRelease, String imgUrl, String synopsis, GenreDTO genreDTO) {
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.yearOfRelease = yearOfRelease;
 		this.imgUrl = imgUrl;
 		this.synopsis = synopsis;
+		this.genre = genreDTO;
 	}
 
 	public MovieDTO(Movie entity) {
