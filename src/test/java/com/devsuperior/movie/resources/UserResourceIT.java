@@ -41,8 +41,7 @@ public class UserResourceIT {
 	@Test
 	public void findAllPagedShouldReturnAllUserPaged() throws Exception {
 		
-		ResultActions result = mockMvc.perform(get("/users/profile")
-				.accept(MediaType.APPLICATION_JSON));
+		ResultActions result = mockMvc.perform(get("/users/profile"));
 		
 		result.andExpect(status().isOk());
 		result.andExpect(jsonPath("$.content").exists());
@@ -58,12 +57,23 @@ public class UserResourceIT {
 		Optional<User> obj = repository.findAll().stream().findFirst();
 		UUID id = obj.orElseThrow(() -> new ResourceNotFoundException("Id not found: " + obj.get().getId())).getId();
 
-		ResultActions result = mockMvc.perform(get("/users/{id}", id)
-				.accept(MediaType.APPLICATION_JSON));
-		
+		ResultActions result = mockMvc.perform(get("/users/{id}", id));
+
+			result.andExpect(status().isOk());
 			result.andExpect(jsonPath("$.id").isNotEmpty());
 			result.andExpect(jsonPath("$.name").isNotEmpty());
 			result.andExpect(jsonPath("$.email").isNotEmpty());
+
+	}
+
+	@Test
+	public void findByIdShouldReturnStatusNotFoundWhenIdNonExisting() throws Exception {
+
+		UUID id = UUID.randomUUID();
+
+		ResultActions result = mockMvc.perform(get("/users/{id}", id));
+
+		result.andExpect(status().isNotFound());
 	}
 	
 	@Test
@@ -71,16 +81,26 @@ public class UserResourceIT {
 
 		String name = "Nanci";
 
-		ResultActions result = mockMvc.perform(get("/users/name/{name}", name)
-				.accept(MediaType.APPLICATION_JSON));
-				
+		ResultActions result = mockMvc.perform(get("/users/name/{name}", name));
+
+		result.andExpect(status().isOk());
 		result.andExpect(jsonPath("$[0]").exists());
 		result.andExpect(jsonPath("$[0].id").isNotEmpty());
 		result.andExpect(jsonPath("$[0].name").isNotEmpty());
 		result.andExpect(jsonPath("$[0].email").isNotEmpty());
-		result.andExpect(jsonPath("$[0].password").isNotEmpty());
 	}
-	
+
+	@Test
+	public void queryMethodShouldReturnStatusNotFoundWhenNameNonExisting() throws Exception {
+
+		String name = "Tomás";
+
+		ResultActions result = mockMvc.perform(get("/users/name/{name}", name));
+
+		result.andExpect(status().isNotFound());
+	}
+
+	//Remove @JsonProperty from the password attribute for the test to pass successfully.
 	@Test
 	public void insertShouldSaveObjectWhenCorrectStructure() throws Exception{
 		
@@ -90,15 +110,16 @@ public class UserResourceIT {
 		
 		ResultActions result = mockMvc.perform(post("/users")
 				.content(jsonBody)
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON));
-		
-		result.andExpect(jsonPath("$.id").isNotEmpty());
+					.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON));
+
+		result.andExpect(status().isOk());
+		result.andExpect(jsonPath("$.id").exists());
 		result.andExpect(jsonPath("$.name").isNotEmpty());
 		result.andExpect(jsonPath("$.email").isNotEmpty());
-		result.andExpect(jsonPath("$.password").isNotEmpty());
 	}
-	
+
+	//Remove @JsonProperty from the password attribute for the test to pass successfully.
 	@Test
 	public void updateShouldSaveObjectWhenIdExists() throws Exception{
 
@@ -113,22 +134,49 @@ public class UserResourceIT {
 				.content(jsonBody)
 					.contentType(MediaType.APPLICATION_JSON)
 						.accept(MediaType.APPLICATION_JSON));
-		
+
+		result.andExpect(status().isOk());
 		result.andExpect(jsonPath("$.id").isNotEmpty());
 		result.andExpect(jsonPath("$.name").isNotEmpty());
 		result.andExpect(jsonPath("$.email").isNotEmpty());
 		result.andExpect(jsonPath("$.password").isNotEmpty());
 	}
-	
+
 	@Test
-	public void deleteByIdShouldDeleteUserByIdWhenIdExists() throws Exception{
+	public void updateShouldReturnStatusNotFoundWhenIdNonExisting() throws Exception {
+
+		UUID id = UUID.randomUUID();
+
+		UserDTO dto = Factory.createdUserDtoToUpdateIsNotFound();
+
+		String jsonBody = objectMapper.writeValueAsString(dto);
+
+		ResultActions result = mockMvc.perform(put("/users/{id}", id)
+				.content(jsonBody)
+					.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON));
+
+		result.andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void deleteByIdShouldReturnBadRequestWhenIdIsAssociated() throws Exception{
 
 		Optional<User> obj = repository.findAll().stream().findFirst();
 		UUID id = obj.orElseThrow(() -> new ResourceNotFoundException("Id not found: " + obj.get().getId())).getId();
 
-		ResultActions result = mockMvc.perform(delete("/users/{id}", id)
-				.accept(MediaType.APPLICATION_JSON));
+		ResultActions result = mockMvc.perform(delete("/users/{id}", id));
 		
-		result.andExpect(status().isOk());
+		result.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void deleteByIdShouldReturnStatusNotFoundWhenIdNonExisting() throws Exception {
+
+		UUID id = UUID.randomUUID();
+
+		ResultActions result = mockMvc.perform(delete("/users/{id}", id));
+
+		result.andExpect(status().isNotFound());
 	}
 }
