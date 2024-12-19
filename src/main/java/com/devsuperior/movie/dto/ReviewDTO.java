@@ -26,9 +26,11 @@ public class ReviewDTO extends RepresentationModel<ReviewDTO> {
 	public ReviewDTO(){
 	}
 
-	public ReviewDTO(UUID id, String text) {
+	public ReviewDTO(UUID id, String text, MovieDTO movieDTO, UserDTO userDTO) {
 		this.id = id;
 		this.text = text;
+		this.movie = movieDTO;
+		this.user = userDTO;
 	}
 
 	public ReviewDTO(Review entity){
