@@ -46,9 +46,12 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public List<MovieDTO> queryMethod(String title) {
 
-		List<Movie> entity = repository.findAllByTitleContainingIgnoreCase(title);
+		List<Movie> list = repository.findAllByTitleContainingIgnoreCase(title);
+		if(list.isEmpty()){
+			throw new ResourceNotFoundException("Title not found: " + title);
+		}
 
-		return entity.stream().map(x -> new MovieDTO(x, x.getGenre(), x.getReviews())).collect(Collectors.toList());
+		return list.stream().map(x -> new MovieDTO(x, x.getGenre(), x.getReviews())).collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)
