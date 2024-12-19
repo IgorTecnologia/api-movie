@@ -58,9 +58,12 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewDTO> queryMethod(String text){
 
-		List<Review> entity = repository.findAllByTextContainingIgnoreCase(text);
+		List<Review> list = repository.findAllByTextContainingIgnoreCase(text);
+		if(list.isEmpty()){
+			throw new ResourceNotFoundException("Text not found: " + text);
+		}
 
-		return entity.stream().map(x -> new ReviewDTO(x, x.getUser(), x.getMovie())).collect(Collectors.toList());
+		return list.stream().map(x -> new ReviewDTO(x, x.getUser(), x.getMovie())).collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)
