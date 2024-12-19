@@ -43,9 +43,12 @@ public class GenreServiceImpl implements GenreService {
 	@Override
 	public List<GenreDTO> queryMethod(String name) {
 
-		List<Genre> entity = repository.findAllByNameContainingIgnoreCase(name);
+		List<Genre> list = repository.findAllByNameContainingIgnoreCase(name);
+		if(list.isEmpty()){
+			throw new ResourceNotFoundException("Name not found: " + name);
+		}
 
-		return entity.stream().map(x -> new GenreDTO(x, x.getMovies())).collect(Collectors.toList());
+		return list.stream().map(x -> new GenreDTO(x, x.getMovies())).collect(Collectors.toList());
 
 	}
 
